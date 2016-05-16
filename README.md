@@ -1,3 +1,4 @@
+```
 " 定义快捷键的前缀，即<Leader>
 let mapleader=","
 
@@ -163,3 +164,4 @@ nnoremap <Leader>tl :TagbarToggle<CR>
 let tagbar_width=22
 " tagbar子窗口中不显示冗余帮助信息
 let g:tagbar_compact=1
+```
