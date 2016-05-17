@@ -41,6 +41,7 @@ Plugin 'nathanaelkane/vim-indent-guides' "可视化代码缩进
 Plugin 'majutsushi/tagbar' "标签列表
 Plugin 'fholgado/minibufexpl.vim' "多文档编辑
 Plugin 'scrooloose/nerdtree' "工程文件浏览
+Plugin 'shawncplus/phpcomplete.vim' "
 " 插件列表结束
 call vundle#end()
 filetype plugin indent on
@@ -111,7 +112,7 @@ set softtabstop=4
 
 " 多层缩进
 " 随vim自启动
-let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_enable_on_vim_startup=0
 " 从第二层开始可视化显示缩进
 let g:indent_guides_start_level=2
 " 色块宽度
@@ -164,4 +165,44 @@ nnoremap <Leader>tl :TagbarToggle<CR>
 let tagbar_width=22
 " tagbar子窗口中不显示冗余帮助信息
 let g:tagbar_compact=1
+
+" PHP相关配置
+" 使用(CTRL-L)命令来检查PHP语法
+autocmd FileType php noremap <C-L> :!/usr/bin/php -l %<CR>
+" 使用(CTRL-M)命令来运行php文件
+autocmd FileType php noremap <C-M> :w!<CR>:!/usr/bin/php %<CR>
+
+set complete+=kspell
+
+" 需要安装最新的ctags
+" git clone https://github.com/universal-ctags/ctags.git
+" cd ctags
+" ./autogen.sh (需要安装autoconf)
+" ./configure --prefix=/usr/local/ctags
+" sudo make && make install
+" 进入项目根目录，执行：
+" /usr/local/ctags/bin/ctags -R --fields=+aims --language-force=php
+" 按下ctrl+x ctrl+o就会出现提示列表框，ctrl+p/n上下来选择
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+let g:phpcomplete_mappings = {
+\ 'jump_to_def':'<C-]>',
+\ 'jump_to_def_split':'<Leader>s<C-]>',
+\ 'jump_to_def_vsplit':'<Leader>v<C-]>',
+\}
+
+
+" 加多行注释，linux(ctrl-v)，window(ctrl-q) 然后j,k选中多列，
+" 按下大写I，输入注释符号（如：//），按ESC即可
+" 删除多行注释，同上选中，然后按d即可
+
+" 设置内部编码为utf8
+" set encoding=utf8
+" 设置当前编辑的文件编码
+" set fileencoding=utf8
+" 设置打开支持编码的文件
+" set fileencodings=utf8,gbk,gb2312,big5
+" 解决console输出乱码
+" language message zh_CN.utf8
+
 ```
